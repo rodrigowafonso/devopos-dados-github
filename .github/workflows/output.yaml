@@ -6,7 +6,7 @@ on:
         branches: ["main"]
     workflow_dispatch:
 jobs:
-    gerando_output:
+    gerando_output_nivel_actions:
         runs-on: ubuntu-latest
         steps:
             - name: Gerando Output com Shell
