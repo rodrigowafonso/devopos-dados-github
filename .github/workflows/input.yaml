@@ -1,0 +1,43 @@
+name: Conhecendo o Input do Github Actions
+# Nome de execução da Action
+run-name: Exemplo Workflow para input, executado por ${{ github.actor }}
+on:
+    push:
+        branches: ["main"]
+    workflow_dispatch:
+        inputs:
+            versao:
+                type: string
+                required: true
+                default: "dev"
+                description: "Versão da nova Release"
+            numero_card:
+                type: number
+                required: true
+                description: "Número do Card da tarefa do Commit"
+            fazer_deploy:
+                type: boolean
+                required: true
+                description: "Especifica se deve ou não fazer deploy"
+            ambiente:
+                type: choice
+                required: true
+                description: "Ambiente de Deploy"
+                options:
+                    - Desenvolvimento
+                    - Homologação
+                    - Produção
+jobs:
+    valores_input:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Exibe o contexto de Input Completo
+              run: echo "${{ toJson(inputs)}}"
+            - name: Exibindo os valores individualmente
+              run: |
+                echo "Esses são valores passados nos Inputs"
+                echo "A versão é: ${{ inputs.versao }}"
+                echo "O Card é: ${{ inputs.numero_card }}"
+                echo "Deve fazer Deploy: ${{ inputs.fazer_deploy }}"
+                echo "O Ambiente é: ${{ inputs.ambiente }}"
+
