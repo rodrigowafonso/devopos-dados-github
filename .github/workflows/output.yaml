@@ -21,7 +21,7 @@ jobs:
             - name: Exibindo o Output da Actions exemplo-output
               run: echo "${{ steps.shell.outputs.action_random }}"
 
-            - name: Gerador de Senha Randomica
+            - name: Gerador de Senha Randomica TOP
               id: generatedpassword
               uses: aammirmirza/RandomPasswordGenerator@v1.1
               with:
