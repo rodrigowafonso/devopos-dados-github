@@ -22,7 +22,7 @@ jobs:
               id: generatedpassword
               uses: aammirmirza/RandomPasswordGenerator@v1.1
               with:
-                length: 15
+                length: 60
 
             - name: Exibindo o Output da Actions generatedpassword
               run: echo "${{ steps.generatedpassword.outputs.password }}"
