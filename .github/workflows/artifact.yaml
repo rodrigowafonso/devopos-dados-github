@@ -1,0 +1,52 @@
+name: Conhecendo o GitHub Artifact
+run-name: Exemplo workflow para artifact, executao por ${{ github.actor }}
+on:
+    push:
+        branches: ["main"]
+    workflow_dispatch:
+env:
+    nome-artefato: envio-artefato
+jobs:
+    upload-artifact:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Listagem de Arquivos
+              run: ls -la
+            - name: Gerar Arquivos
+              run: |
+                mkdir artefatos
+                echo "Conteudo do Arquivo 01" > .artefatos/primeiro_arquivo_01.txt
+                echo "Conteudo do Arquivo 02" > .artefatos/primeiro_arquivo_02.txt
+                echo "Conteudo do Arquivo 03" > .artefatos/primeiro_arquivo_03.txt
+                echo "Conteudo do Arquivo 04" > .artefatos/primeiro_arquivo_04.txt
+
+            - name: Envio de arquivos
+              uses: actions/upload-artifact@v4
+              id: upload-artifact
+              with:
+                name: ${{ env.nome-artefato }}
+                path: ./artefatos
+
+            - name: Listagem de arquivos
+              run: ls -la
+
+            - name: URL dos Artefatos
+              run: |
+                echo "${{ steps.upload-artifact.outputs.artifact-id }}"
+                echo "${{ steps.upload-artifact.outputs.artifact-url}}"
+
+    download-artifact:
+        runs-on: ubuntu-latest
+        needs: [upload-artifact]
+        steps:
+            - name: Listagem dos Arquivos
+              run: ls -la
+
+            - name: Download do Artefato
+              uses: actions/download-artifact@v4
+              with:
+                name: ${{ env.nome-artefato }}
+
+            - name: Listagem dos Arquivos
+              run: ls -la
+  
