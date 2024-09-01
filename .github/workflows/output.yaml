@@ -19,7 +19,7 @@ jobs:
                 echo action_random=$ACTION_RANDOM >> $GITHUB_OUTPUT
 
             - name: Exibindo o Output da Actions exemplo-output
-              run: echo "${{ steps.shell.outputs.action_random }}"
+              run: echo '${{ steps.shell.outputs.action_random }}'
 
             - name: Gerador de Senha Randomica TOP
               id: generatedpassword
@@ -28,8 +28,8 @@ jobs:
                 length: 60
 
             - name: Exibindo o Output da Actions generatedpassword
-              run: echo "${{ steps.generatedpassword.outputs.password }}"
-              
+              run: echo '${{ steps.generatedpassword.outputs.password }}'
+
     exibindo_valores_outputs:
         needs: [gerando_output_nivel_actions]
         runs-on: ubuntu-latest
